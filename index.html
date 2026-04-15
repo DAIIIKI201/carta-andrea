@@ -19,12 +19,35 @@ body{
     width:2px;
     height:2px;
     background:white;
-    animation:blink 2s infinite alternate;
+    animation:parpadeo 2s infinite alternate;
 }
 
-@keyframes blink{
+@keyframes parpadeo{
     from{opacity:0.2;}
     to{opacity:1;}
+}
+
+/* luna */
+.luna{
+    position:absolute;
+    top:40px;
+    right:60px;
+    width:80px;
+    height:80px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 20px white;
+}
+
+/* boton */
+#btn{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    border:1px solid white;
+    padding:15px;
+    cursor:pointer;
 }
 
 /* carta */
@@ -39,22 +62,30 @@ body{
     width:80%;
     max-width:600px;
     border-radius:10px;
+    animation:fade 1s;
 }
 
-/* boton */
-#btn{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    padding:15px;
-    border:1px solid white;
-    cursor:pointer;
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* corazon */
+.corazon{
+    color:red;
+    animation:latido 1s infinite;
+}
+
+@keyframes latido{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.3);}
 }
 </style>
 </head>
 
 <body>
+
+<div class="luna"></div>
 
 <div id="btn" onclick="abrir()">Abrir carta 🖤</div>
 
@@ -71,7 +102,7 @@ body{
 
 <p>Te amé ayer, te amo hoy y te amaré por todas nuestras vidas.</p>
 
-<p style="text-align:right;">Att: tu pingüinito ❤️</p>
+<p style="text-align:right;">Att: tu pingüinito <span class="corazon">❤️</span></p>
 </div>
 
 <script>
@@ -80,8 +111,8 @@ function abrir(){
     document.getElementById("carta").style.display="block";
 }
 
-/* estrellas */
-for(let i=0;i<80;i++){
+/* crear estrellas */
+for(let i=0;i<100;i++){
     let s=document.createElement("div");
     s.className="star";
     s.style.top=Math.random()*100+"%";
