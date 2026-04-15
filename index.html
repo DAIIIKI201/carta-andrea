@@ -19,12 +19,7 @@ body{
     width:2px;
     height:2px;
     background:white;
-    animation:parpadeo 2s infinite alternate;
-}
-
-@keyframes parpadeo{
-    from{opacity:0.2;}
-    to{opacity:1;}
+    opacity:0.3;
 }
 
 /* luna */
@@ -73,6 +68,7 @@ body{
 /* corazon */
 .corazon{
     color:red;
+    display:inline-block;
     animation:latido 1s infinite;
 }
 
@@ -119,6 +115,14 @@ for(let i=0;i<100;i++){
     s.style.left=Math.random()*100+"%";
     document.body.appendChild(s);
 }
+
+/* ✨ PARPADEO REAL (JS) */
+setInterval(()=>{
+    let stars = document.querySelectorAll(".star");
+    stars.forEach(s=>{
+        s.style.opacity = Math.random();
+    });
+}, 300);
 </script>
 
 </body>
