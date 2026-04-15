@@ -13,6 +13,19 @@ body{
     overflow:hidden;
 }
 
+/* 🌑 pantalla inicial */
+#overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:black;
+    animation:fadeOut 3s forwards;
+}
+
+@keyframes fadeOut{
+    to{opacity:0; visibility:hidden;}
+}
+
 /* 🌙 luna */
 .luna{
     position:absolute;
@@ -23,6 +36,8 @@ body{
     background:white;
     border-radius:50%;
     box-shadow:0 0 60px white;
+    opacity:0;
+    animation:aparecer 2s 2s forwards;
 }
 
 /* ✨ estrellas */
@@ -32,20 +47,6 @@ body{
     height:2px;
     background:white;
     opacity:0.5;
-}
-
-/* 🌫️ niebla */
-.fog{
-    position:absolute;
-    width:200%;
-    height:100%;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    animation:fogMove 10s linear infinite;
-}
-
-@keyframes fogMove{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
 }
 
 /* 🖤 botón */
@@ -58,6 +59,8 @@ body{
     padding:15px;
     cursor:pointer;
     letter-spacing:2px;
+    opacity:0;
+    animation:aparecer 2s 4s forwards;
 }
 
 /* 📜 carta */
@@ -66,19 +69,26 @@ body{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%);
+    transform:translate(-50%,-60%);
     background:#111;
     padding:30px;
     width:85%;
     max-width:600px;
     border-radius:10px;
     box-shadow:0 0 30px rgba(255,255,255,0.2);
-    animation:fade 1.5s;
+    opacity:0;
 }
 
-@keyframes fade{
-    from{opacity:0; transform:translate(-50%,-60%);}
-    to{opacity:1; transform:translate(-50%,-50%);}
+.showCarta{
+    display:block;
+    animation:subir 1.5s forwards;
+}
+
+@keyframes subir{
+    to{
+        opacity:1;
+        transform:translate(-50%,-50%);
+    }
 }
 
 /* ❤️ corazón */
@@ -92,77 +102,82 @@ body{
     0%,100%{transform:scale(1);}
     50%{transform:scale(1.4);}
 }
+
+/* animación aparecer */
+@keyframes aparecer{
+    to{opacity:1;}
+}
 </style>
 </head>
 
 <body>
 
-<div class="fog"></div>
+<div id="overlay"></div>
+
 <div class="luna"></div>
 
 <div id="btn" onclick="abrir()">Abrir carta 🖤</div>
 
-<div id="carta">
-<h2>Para Andrea, el amor de mi vida</h2>
-
-<p>Mi amor hermoso, esta es una carta para ti, para que por medio de estas palabras sientas lo mucho que te amo y todo lo que daría por ti. Estoy completamente enamorado, locamente enamorado de ti, y realmente quiero estar contigo por toda mi eternidad.</p>
-
-<p>Quiero ser esa persona de apoyo para ti, en la que puedas contar con todo. Todo lo que vendrá en el futuro para nuestras vidas será muy próspero y especial. Yo sé que mañana te irá excelente en la entrevista y que vas a quedar.</p>
-
-<p>Tú eres la mejor, mi vida, y valoro absolutamente todo lo que haces, todo lo que has hecho y lo mucho que te esfuerzas cada día. De verdad, me haces muy feliz y me siento orgulloso de ti.</p>
-
-<p>Quiero decirte que me encantas demasiado y nunca dejaré de sentir esto tan puro y completamente especial que siento por ti.</p>
-
-<p>Te amé ayer, te amo hoy y te amaré por todas nuestras vidas.</p>
-
-<p style="text-align:right;">Att: tu pingüinito <span class="corazon">❤️</span></p>
-</div>
+<div id="carta"></div>
 
 <!-- 🎵 música -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8a3b4c5c6.mp3?filename=dark-piano-ambient-110624.mp3" type="audio/mp3">
 </audio>
 
-<!-- 🔊 sonido click -->
-<audio id="clickSound">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b4a1f.mp3?filename=magic-click-124467.mp3" type="audio/mp3">
-</audio>
-
 <script>
 function abrir(){
     document.getElementById("btn").style.display="none";
-    document.getElementById("carta").style.display="block";
+    let carta = document.getElementById("carta");
+    carta.classList.add("showCarta");
+
+    escribirTexto();
 
     document.getElementById("music").play().catch(()=>{});
-    document.getElementById("clickSound").play().catch(()=>{});
+}
+
+/* ✍️ texto tipo máquina */
+let texto = `
+<h2>Para Andrea, el amor de mi vida</h2>
+<p>Mi amor hermoso, esta es una carta para ti, para que por medio de estas palabras sientas lo mucho que te amo y todo lo que daría por ti. Estoy completamente enamorado, locamente enamorado de ti, y realmente quiero estar contigo por toda mi eternidad.</p>
+<p>Quiero ser esa persona de apoyo para ti, en la que puedas contar con todo. Todo lo que vendrá en el futuro para nuestras vidas será muy próspero y especial. Yo sé que mañana te irá excelente en la entrevista y que vas a quedar.</p>
+<p>Tú eres la mejor, mi vida, y valoro absolutamente todo lo que haces, todo lo que has hecho y lo mucho que te esfuerzas cada día. De verdad, me haces muy feliz y me siento orgulloso de ti.</p>
+<p>Quiero decirte que me encantas demasiado y nunca dejaré de sentir esto tan puro y completamente especial que siento por ti.</p>
+<p>Te amé ayer, te amo hoy y te amaré por todas nuestras vidas.</p>
+<p style="text-align:right;">Att: tu pingüinito <span class="corazon">❤️</span></p>
+`;
+
+function escribirTexto(){
+    let i=0;
+    let speed=15;
+    let carta = document.getElementById("carta");
+    carta.innerHTML="";
+
+    function escribir(){
+        if(i < texto.length){
+            carta.innerHTML += texto.charAt(i);
+            i++;
+            setTimeout(escribir, speed);
+        }
+    }
+    escribir();
 }
 
 /* estrellas */
-let stars=[];
-for(let i=0;i<120;i++){
+for(let i=0;i<100;i++){
     let s=document.createElement("div");
     s.className="star";
-
-    let x=Math.random()*window.innerWidth;
-    let y=Math.random()*window.innerHeight;
-
-    s.style.transform=`translate(${x}px,${y}px)`;
-
+    s.style.top=Math.random()*100+"%";
+    s.style.left=Math.random()*100+"%";
     document.body.appendChild(s);
-
-    stars.push({el:s,x:x,y:y});
 }
 
-/* animación fuerte */
+/* animación estrellas */
 setInterval(()=>{
-    stars.forEach(star=>{
-        star.x += (Math.random()-0.5)*2;
-        star.y += (Math.random()-0.5)*2;
-
-        star.el.style.transform = `translate(${star.x}px, ${star.y}px)`;
-        star.el.style.opacity = Math.random();
+    document.querySelectorAll(".star").forEach(s=>{
+        s.style.opacity=Math.random();
     });
-},50);
+},300);
 </script>
 
 </body>
