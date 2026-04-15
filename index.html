@@ -5,176 +5,88 @@
 <title>Para Andrea 🖤</title>
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    background: radial-gradient(circle at top, #111, #000);
-    overflow: hidden;
-    color: #eaeaea;
-    font-family: Georgia, serif;
+body{
+    margin:0;
+    background:black;
+    color:white;
+    font-family:Georgia;
+    overflow:hidden;
 }
 
-/* 🌙 LUNA */
-.moon {
-    position: absolute;
-    top: 40px;
-    right: 60px;
-    width: 100px;
-    height: 100px;
-    background: #f5f5f5;
-    border-radius: 50%;
-    box-shadow: 0 0 40px #fff;
+/* estrellas */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    animation:blink 2s infinite alternate;
 }
 
-/* ✨ ESTRELLAS */
-.stars span {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    animation: blink 2s infinite alternate;
+@keyframes blink{
+    from{opacity:0.2;}
+    to{opacity:1;}
 }
 
-@keyframes blink {
-    from {opacity: 0.2;}
-    to {opacity: 1;}
+/* carta */
+#carta{
+    display:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:#111;
+    padding:30px;
+    width:80%;
+    max-width:600px;
+    border-radius:10px;
 }
 
-/* 🌫️ NIEBLA (SIN IMÁGENES) */
-.fog {
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    animation: fogMove 12s linear infinite;
-}
-
-@keyframes fogMove {
-    from {transform: translateX(0);}
-    to {transform: translateX(-50%);}
-}
-
-/* 🖤 CARTA */
-.carta {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.7);
-    background: rgba(15,15,15,0.95);
-    padding: 35px;
-    max-width: 600px;
-    border-radius: 15px;
-    border: 1px solid #555;
-    box-shadow: 0 0 30px rgba(255,255,255,0.1);
-    opacity: 0;
-    animation: aparecer 2s ease forwards;
-}
-
-@keyframes aparecer {
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-h1 {
-    text-align: center;
-    letter-spacing: 2px;
-}
-
-p {
-    line-height: 1.7;
-    text-align: justify;
-}
-
-/* ❤️ LATIDO */
-.corazon {
-    color: red;
-    display: inline-block;
-    animation: latido 1s infinite;
-}
-
-@keyframes latido {
-    0%,100% {transform: scale(1);}
-    50% {transform: scale(1.3);}
-}
-
-/* BOTÓN */
-.start {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid white;
-    padding: 15px 25px;
-    background: transparent;
-    color: white;
-    cursor: pointer;
-}
-
-.start:hover {
-    background: white;
-    color: black;
-}
-
-.hidden {
-    display: none;
+/* boton */
+#btn{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:15px;
+    border:1px solid white;
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="fog"></div>
-<div class="moon"></div>
-<div class="stars" id="stars"></div>
+<div id="btn" onclick="abrir()">Abrir carta 🖤</div>
 
-<button class="start" onclick="mostrarCarta()">Abrir carta 🖤</button>
+<div id="carta">
+<h2>Para Andrea, el amor de mi vida</h2>
 
-<div class="carta hidden" id="carta">
-    <h1>Para Andrea, el amor de mi vida</h1>
+<p>Mi amor hermoso, esta es una carta para ti, para que por medio de estas palabras sientas lo mucho que te amo y todo lo que daría por ti. Estoy completamente enamorado, locamente enamorado de ti, y realmente quiero estar contigo por toda mi eternidad.</p>
 
-    <p>
-        Mi amor hermoso, esta es una carta para ti, para que por medio de estas palabras sientas lo mucho que te amo y todo lo que daría por ti.
-        Estoy completamente enamorado, locamente enamorado de ti, y realmente quiero estar contigo por toda mi eternidad.
-    </p>
+<p>Quiero ser esa persona de apoyo para ti, en la que puedas contar con todo. Todo lo que vendrá en el futuro para nuestras vidas será muy próspero y especial. Yo sé que mañana te irá excelente en la entrevista y que vas a quedar.</p>
 
-    <p>
-        Quiero ser esa persona de apoyo para ti, en la que puedas contar con todo. Todo lo que vendrá en el futuro para nuestras vidas será muy próspero y especial.
-        Yo sé que mañana te irá excelente en la entrevista y que vas a quedar.
-    </p>
+<p>Tú eres la mejor, mi vida, y valoro absolutamente todo lo que haces, todo lo que has hecho y lo mucho que te esfuerzas cada día. De verdad, me haces muy feliz y me siento orgulloso de ti.</p>
 
-    <p>
-        Tú eres la mejor, mi vida, y valoro absolutamente todo lo que haces, todo lo que has hecho y lo mucho que te esfuerzas cada día.
-        De verdad, me haces muy feliz y me siento orgulloso de ti.
-    </p>
+<p>Quiero decirte que me encantas demasiado y nunca dejaré de sentir esto tan puro y completamente especial que siento por ti.</p>
 
-    <p>
-        Quiero decirte que me encantas demasiado y nunca dejaré de sentir esto tan puro y completamente especial que siento por ti.
-    </p>
+<p>Te amé ayer, te amo hoy y te amaré por todas nuestras vidas.</p>
 
-    <p>
-        Te amé ayer, te amo hoy y te amaré por todas nuestras vidas.
-    </p>
-
-    <p style="text-align:right;">
-        Att: tu pingüinito <span class="corazon">❤️</span>
-    </p>
+<p style="text-align:right;">Att: tu pingüinito ❤️</p>
 </div>
 
 <script>
-function mostrarCarta(){
-    document.querySelector('.start').classList.add('hidden');
-    document.getElementById('carta').classList.remove('hidden');
+function abrir(){
+    document.getElementById("btn").style.display="none";
+    document.getElementById("carta").style.display="block";
 }
 
 /* estrellas */
-const stars = document.getElementById('stars');
-for(let i=0;i<60;i++){
-    let s = document.createElement('span');
-    s.style.top = Math.random()*100+"%";
-    s.style.left = Math.random()*100+"%";
-    stars.appendChild(s);
+for(let i=0;i<80;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.top=Math.random()*100+"%";
+    s.style.left=Math.random()*100+"%";
+    document.body.appendChild(s);
 }
 </script>
 
