@@ -13,13 +13,13 @@ body{
     overflow:hidden;
 }
 
-/* 🌑 pantalla inicial */
+/* 🌑 intro */
 #overlay{
     position:absolute;
     width:100%;
     height:100%;
     background:black;
-    animation:fadeOut 3s forwards;
+    animation:fadeOut 2.5s forwards;
 }
 
 @keyframes fadeOut{
@@ -37,7 +37,7 @@ body{
     border-radius:50%;
     box-shadow:0 0 60px white;
     opacity:0;
-    animation:aparecer 2s 2s forwards;
+    animation:aparecer 2s 1.5s forwards;
 }
 
 /* ✨ estrellas */
@@ -60,7 +60,7 @@ body{
     cursor:pointer;
     letter-spacing:2px;
     opacity:0;
-    animation:aparecer 2s 4s forwards;
+    animation:aparecer 2s 3s forwards;
 }
 
 /* 📜 carta */
@@ -81,7 +81,7 @@ body{
 
 .showCarta{
     display:block;
-    animation:subir 1.5s forwards;
+    animation:subir 1.2s forwards;
 }
 
 @keyframes subir{
@@ -100,10 +100,10 @@ body{
 
 @keyframes latido{
     0%,100%{transform:scale(1);}
-    50%{transform:scale(1.4);}
+    50%{transform:scale(1.3);}
 }
 
-/* animación aparecer */
+/* aparecer */
 @keyframes aparecer{
     to{opacity:1;}
 }
@@ -128,15 +128,16 @@ body{
 <script>
 function abrir(){
     document.getElementById("btn").style.display="none";
+
     let carta = document.getElementById("carta");
     carta.classList.add("showCarta");
 
-    escribirTexto();
+    mostrarTexto();
 
     document.getElementById("music").play().catch(()=>{});
 }
 
-/* ✍️ texto tipo máquina */
+/* ✍️ texto rápido con fade */
 let texto = `
 <h2>Para Andrea, el amor de mi vida</h2>
 <p>Mi amor hermoso, esta es una carta para ti, para que por medio de estas palabras sientas lo mucho que te amo y todo lo que daría por ti. Estoy completamente enamorado, locamente enamorado de ti, y realmente quiero estar contigo por toda mi eternidad.</p>
@@ -147,37 +148,43 @@ let texto = `
 <p style="text-align:right;">Att: tu pingüinito <span class="corazon">❤️</span></p>
 `;
 
-function escribirTexto(){
-    let i=0;
-    let speed=15;
+function mostrarTexto(){
     let carta = document.getElementById("carta");
-    carta.innerHTML="";
+    carta.innerHTML = texto;
+    carta.style.opacity = 0;
 
-    function escribir(){
-        if(i < texto.length){
-            carta.innerHTML += texto.charAt(i);
-            i++;
-            setTimeout(escribir, speed);
-        }
-    }
-    escribir();
+    setTimeout(()=>{
+        carta.style.transition = "opacity 1.5s";
+        carta.style.opacity = 1;
+    },100);
 }
 
 /* estrellas */
+let stars=[];
 for(let i=0;i<100;i++){
     let s=document.createElement("div");
     s.className="star";
-    s.style.top=Math.random()*100+"%";
-    s.style.left=Math.random()*100+"%";
+
+    let x=Math.random()*window.innerWidth;
+    let y=Math.random()*window.innerHeight;
+
+    s.style.transform=`translate(${x}px,${y}px)`;
+
     document.body.appendChild(s);
+
+    stars.push({el:s,x:x,y:y});
 }
 
 /* animación estrellas */
 setInterval(()=>{
-    document.querySelectorAll(".star").forEach(s=>{
-        s.style.opacity=Math.random();
+    stars.forEach(star=>{
+        star.x += (Math.random()-0.5)*1.5;
+        star.y += (Math.random()-0.5)*1.5;
+
+        star.el.style.transform = `translate(${star.x}px, ${star.y}px)`;
+        star.el.style.opacity = Math.random();
     });
-},300);
+},80);
 </script>
 
 </body>
